@@ -1,0 +1,3 @@
+[submodule "gorilla/gorilla-main"]
+	path = gorilla/gorilla-main
+	url = git@github.com:ShishirPatil/gorilla.git

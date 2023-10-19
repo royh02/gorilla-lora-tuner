@@ -1,0 +1,280 @@
+/data/roy.huang/miniconda3/bin/python: Error while finding module specification for 'torch.distributed.launch' (ModuleNotFoundError: No module named 'torch')
+/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py:181: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use-env is set by default in torchrun.
+If your script expects `--local-rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+[2023-10-14 16:29:20,500] torch.distributed.run: [WARNING] 
+[2023-10-14 16:29:20,500] torch.distributed.run: [WARNING] *****************************************
+[2023-10-14 16:29:20,500] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2023-10-14 16:29:20,500] torch.distributed.run: [WARNING] *****************************************
+| distributed init (rank 4): env://, gpu 4
+Traceback (most recent call last):
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 302, in <module>
+    main(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 139, in main
+    misc.init_distributed_mode(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/util/misc.py", line 259, in init_distributed_mode
+    torch.cuda.set_device(args.gpu)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/cuda/__init__.py", line 404, in set_device
+    torch._C._cuda_setDevice(device)
+RuntimeError: CUDA error: invalid device ordinal
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 302, in <module>
+    main(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 139, in main
+    misc.init_distributed_mode(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/util/misc.py", line 259, in init_distributed_mode
+    torch.cuda.set_device(args.gpu)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/cuda/__init__.py", line 404, in set_device
+    torch._C._cuda_setDevice(device)
+RuntimeError: CUDA error: invalid device ordinal
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+| distributed init (rank 2): env://, gpu 2
+| distributed init (rank 1): env://, gpu 1
+| distributed init (rank 0): env://, gpu 0
+| distributed init (rank 5): env://, gpu 5
+| distributed init (rank 3): env://, gpu 3
+[2023-10-14 16:29:25,514] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 27417 closing signal SIGTERM
+[2023-10-14 16:29:25,514] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 27418 closing signal SIGTERM
+[2023-10-14 16:29:25,515] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 27419 closing signal SIGTERM
+[2023-10-14 16:29:25,515] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 27420 closing signal SIGTERM
+[2023-10-14 16:29:25,515] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 27421 closing signal SIGTERM
+[2023-10-14 16:29:25,516] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 27422 closing signal SIGTERM
+[2023-10-14 16:29:25,781] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 6 (pid: 27423) of binary: /data/roy.huang/miniconda3/envs/gorilla-adapter/bin/python
+Traceback (most recent call last):
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 196, in <module>
+    main()
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 192, in main
+    launch(args)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 177, in launch
+    run(args)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/run.py", line 797, in run
+    elastic_launch(
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 134, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 264, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+main_finetune.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2023-10-14_16:29:25
+  host      : freddie.millennium.berkeley.edu
+  rank      : 7 (local_rank: 7)
+  exitcode  : 1 (pid: 27424)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2023-10-14_16:29:25
+  host      : freddie.millennium.berkeley.edu
+  rank      : 6 (local_rank: 6)
+  exitcode  : 1 (pid: 27423)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py:181: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use-env is set by default in torchrun.
+If your script expects `--local-rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+[2023-10-14 20:02:36,477] torch.distributed.run: [WARNING] 
+[2023-10-14 20:02:36,477] torch.distributed.run: [WARNING] *****************************************
+[2023-10-14 20:02:36,477] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2023-10-14 20:02:36,477] torch.distributed.run: [WARNING] *****************************************
+| distributed init (rank 0): env://, gpu 0
+| distributed init (rank 2): env://, gpu 2
+| distributed init (rank 1): env://, gpu 1
+| distributed init (rank 3): env://, gpu 3
+Traceback (most recent call last):
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 302, in <module>
+    main(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 139, in main
+    misc.init_distributed_mode(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/util/misc.py", line 259, in init_distributed_mode
+    torch.cuda.set_device(args.gpu)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/cuda/__init__.py", line 404, in set_device
+    torch._C._cuda_setDevice(device)
+RuntimeError: CUDA error: invalid device ordinal
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+| distributed init (rank 4): env://, gpu 4
+| distributed init (rank 5): env://, gpu 5
+Traceback (most recent call last):
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 302, in <module>
+    main(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 139, in main
+    misc.init_distributed_mode(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/util/misc.py", line 259, in init_distributed_mode
+    torch.cuda.set_device(args.gpu)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/cuda/__init__.py", line 404, in set_device
+    torch._C._cuda_setDevice(device)
+RuntimeError: CUDA error: invalid device ordinal
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[2023-10-14 20:02:41,491] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 22833 closing signal SIGTERM
+[2023-10-14 20:02:41,491] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 22834 closing signal SIGTERM
+[2023-10-14 20:02:41,491] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 22835 closing signal SIGTERM
+[2023-10-14 20:02:41,492] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 22836 closing signal SIGTERM
+[2023-10-14 20:02:41,492] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 22837 closing signal SIGTERM
+[2023-10-14 20:02:41,493] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 22838 closing signal SIGTERM
+[2023-10-14 20:02:41,836] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 6 (pid: 22839) of binary: /data/roy.huang/miniconda3/envs/gorilla-adapter/bin/python
+Traceback (most recent call last):
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 196, in <module>
+    main()
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 192, in main
+    launch(args)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 177, in launch
+    run(args)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/run.py", line 797, in run
+    elastic_launch(
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 134, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 264, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+main_finetune.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2023-10-14_20:02:41
+  host      : freddie.millennium.berkeley.edu
+  rank      : 7 (local_rank: 7)
+  exitcode  : 1 (pid: 22840)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2023-10-14_20:02:41
+  host      : freddie.millennium.berkeley.edu
+  rank      : 6 (local_rank: 6)
+  exitcode  : 1 (pid: 22839)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py:181: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use-env is set by default in torchrun.
+If your script expects `--local-rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+[2023-10-14 20:19:04,218] torch.distributed.run: [WARNING] 
+[2023-10-14 20:19:04,218] torch.distributed.run: [WARNING] *****************************************
+[2023-10-14 20:19:04,218] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2023-10-14 20:19:04,218] torch.distributed.run: [WARNING] *****************************************
+Traceback (most recent call last):
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 302, in <module>
+    main(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 139, in main
+    misc.init_distributed_mode(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/util/misc.py", line 259, in init_distributed_mode
+    torch.cuda.set_device(args.gpu)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/cuda/__init__.py", line 404, in set_device
+    torch._C._cuda_setDevice(device)
+RuntimeError: CUDA error: invalid device ordinal
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 302, in <module>
+    main(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/main_finetune.py", line 139, in main
+    misc.init_distributed_mode(args)
+  File "/home/eecs/roy.huang/adapter/LLaMA-Adapter/gorilla/finetune/util/misc.py", line 259, in init_distributed_mode
+    torch.cuda.set_device(args.gpu)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/cuda/__init__.py", line 404, in set_device
+    torch._C._cuda_setDevice(device)
+RuntimeError: CUDA error: invalid device ordinal
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+| distributed init (rank 4): env://, gpu 4
+| distributed init (rank 3): env://, gpu 3
+| distributed init (rank 0): env://, gpu 0
+| distributed init (rank 5): env://, gpu 5
+| distributed init (rank 2): env://, gpu 2
+| distributed init (rank 1): env://, gpu 1
+[2023-10-14 20:19:09,230] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 32531 closing signal SIGTERM
+[2023-10-14 20:19:09,230] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 32532 closing signal SIGTERM
+[2023-10-14 20:19:09,231] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 32533 closing signal SIGTERM
+[2023-10-14 20:19:09,231] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 32534 closing signal SIGTERM
+[2023-10-14 20:19:09,232] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 32535 closing signal SIGTERM
+[2023-10-14 20:19:09,232] torch.distributed.elastic.multiprocessing.api: [WARNING] Sending process 32536 closing signal SIGTERM
+[2023-10-14 20:19:09,543] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 6 (pid: 32537) of binary: /data/roy.huang/miniconda3/envs/gorilla-adapter/bin/python
+Traceback (most recent call last):
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 196, in <module>
+    main()
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 192, in main
+    launch(args)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launch.py", line 177, in launch
+    run(args)
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/run.py", line 797, in run
+    elastic_launch(
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 134, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/data/roy.huang/miniconda3/envs/gorilla-adapter/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 264, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+main_finetune.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2023-10-14_20:19:09
+  host      : freddie.millennium.berkeley.edu
+  rank      : 7 (local_rank: 7)
+  exitcode  : 1 (pid: 32538)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2023-10-14_20:19:09
+  host      : freddie.millennium.berkeley.edu
+  rank      : 6 (local_rank: 6)
+  exitcode  : 1 (pid: 32537)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

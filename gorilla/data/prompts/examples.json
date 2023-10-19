@@ -1,0 +1,215 @@
+{
+  "ml": [
+    {
+      "code": "###Instruction: Write an API implementation that takes customer reviews as input and extracts features to analyze customer sentiment.\n###Output: <<<domain>>>: Natural Language Processing Feature Extraction\n<<<api_call>>>: AutoModel.from_pretrained('YituTech/conv-bert-base')\n<<<api_provider>>>: Hugging Face Transformers\n<<<explanation>>>: 1. We import the necessary classes from the transformers package. This includes AutoTokenizer and AutoModel for tokenizing and processing customer review text.\n2. We use the from_pretrained method of the AutoModel class to load the pre-trained model 'YituTech/conv-bert-base'. This model is based on ConvBERT and is suitable for feature extraction in text data.\n3. We load the customer review text, tokenize it, and use the model to extract features from the review. These features can then be used to analyze customer sentiment.\n<<<code>>>: from transformers import AutoTokenizer, AutoModel\ntokenizer = AutoTokenizer.from_pretrained('YituTech/conv-bert-base')\nmodel = AutoModel.from_pretrained('YituTech/conv-bert-base')\ninputs = tokenizer(customer_review, return_tensors='pt')\nfeatures = model(**inputs)\n",
+      "api_call": "AutoModel.from_pretrained('YituTech/conv-bert-base')",
+      "provider": "Hugging Face Transformers",
+      "api_data": {
+        "domain": "Natural Language Processing Feature Extraction",
+        "framework": "Hugging Face Transformers",
+        "functionality": "Feature Extraction",
+        "api_name": "YituTech/conv-bert-base",
+        "api_call": "AutoModel.from_pretrained('YituTech/conv-bert-base')",
+        "api_arguments": "N/A",
+        "python_environment_requirements": "transformers",
+        "example_code": "N/A",
+        "performance": {
+          "dataset": "N/A",
+          "accuracy": "N/A"
+        },
+        "description": "A pre-trained ConvBERT model for feature extraction provided by YituTech, based on the Hugging Face Transformers library."
+      }
+    },
+    {
+      "code": "###Instruction: Can you recommend me a well-known language model for an AI-based text generator that can generate creative promotional sentences for various businesses?\n###Output: <<<domain>>>: Natural Language Processing Text Generation\n<<<api_call>>>: BartModel.from_pretrained('facebook/bart-base')\n<<<api_provider>>>: Hugging Face Transformers\n<<<explanation>>>:1. Facebook's BART (Bidirectional Auto-Regressive Transformers) model is well-known for its effectiveness in generating creative text for various applications. \n2. We first import the necessary classes and tokenizer from the transformers package, including BartModel and BartTokenizer.\n3. We use the from_pretrained method to load the BART model ('facebook/bart-base') and the tokenizer.\n4. After that, we preprocess the text input using the tokenizer, and pass the tokenized input to the BART model.\n5. The model then generates creative promotional sentences that can be used for various businesses.\n<<<code>>>: from transformers import BartModel, BartTokenizer\ntokenizer = BartTokenizer.from_pretrained('facebook/bart-base')\nmodel = BartModel.from_pretrained('facebook/bart-base')\ninputs = tokenizer(\"Example business description\", return_tensors=\"pt\")\noutputs = model(**inputs)\n",
+      "api_call": "BartModel.from_pretrained('facebook/bart-base')",
+      "provider": "Hugging Face Transformers",
+      "api_data": {
+        "domain": "Natural Language Processing Text Generation",
+        "framework": "Hugging Face Transformers",
+        "functionality": "Feature Extraction",
+        "api_name": "facebook/bart-base",
+        "api_call": "BartModel.from_pretrained('facebook/bart-base')",
+        "api_arguments": [
+          "inputs"
+        ],
+        "python_environment_requirements": [
+          "transformers"
+        ],
+        "example_code": "from transformers import BartTokenizer, BartModel\ntokenizer = BartTokenizer.from_pretrained('facebook/bart-base')\nmodel = BartModel.from_pretrained('facebook/bart-base')\ninputs = tokenizer(Hello, my dog is cute, return_tensors=pt)\noutputs = model(**inputs)\nlast_hidden_states = outputs.last_hidden_state",
+        "performance": {
+          "dataset": "arxiv",
+          "accuracy": "Not provided"
+        },
+        "description": "BART is a transformer encoder-decoder (seq2seq) model with a bidirectional (BERT-like) encoder and an autoregressive (GPT-like) decoder. BART is pre-trained by (1) corrupting text with an arbitrary noising function, and (2) learning a model to reconstruct the original text. BART is particularly effective when fine-tuned for text generation (e.g. summarization, translation) but also works well for comprehension tasks (e.g. text classification, question answering)."
+      }
+    },
+    {
+      "code": "###Instruction: Figure out what type of flower is in a garden and load a model that can help classify it.\n###Output: <<<domain>>>: Image classification, <<<api_call>>>: hub.load('https://tfhub.dev/google/imagenet/mobilenet_v1_050_160/classification/4'), <<<api_provider>>>: TensorFlow Hub, <<<explanation>>>: This API call loads a pre-trained MobileNet V1 model from TensorFlow Hub for image classification tasks. The model can be used to classify objects in images. In this specific case, it can help you identify what type of flower is present in a garden. Once the model is loaded, you can pass an image to the model to get a predicted label for the flower's class. <<<code>>>: import tensorflow_hub as hub\nmodel = hub.load('https://tfhub.dev/google/imagenet/mobilenet_v1_050_160/classification/4')\n",
+      "api_call": "hub.load('https://tfhub.dev/google/imagenet/mobilenet_v1_050_160/classification/4')",
+      "provider": "TensorFlow Hub",
+      "api_data": {
+        "domain": "Image classification",
+        "framework": "TensorFlow Hub",
+        "functionality": "Loading",
+        "api_name": "imagenet_mobilenet_v1_050_160_classification",
+        "api_call": "hub.load('https://tfhub.dev/google/imagenet/mobilenet_v1_050_160/classification/4')",
+        "api_arguments": "URL",
+        "python_environment_requirements": "tensorflow, tensorflow-hub",
+        "example_code": "",
+        "performance": {
+          "dataset": "ImageNet",
+          "accuracy": "Not specified"
+        },
+        "description": "Loads a pre-trained MobileNet V1 model for image classification from TensorFlow Hub"
+      }
+    },
+    {
+      "code": "###Instruction: Generate a high-dimensional vector to represent the given text.\n###Input: \"Deep Learning Fundamentals\"\n###Output: <<<domain>>>: Text embedding, <<<api_call>>>: embed = hub.load('https://tfhub.dev/google/universal-sentence-encoder/4'), <<<api_provider>>>: TensorFlow Hub, <<<explanation>>>: This API call allows you to load a pre-trained Universal Sentence Encoder model from TensorFlow Hub. The model is designed to convert text into high-dimensional vectors that can be used in various natural language processing tasks. In this case, the text \"Deep Learning Fundamentals\" will be transformed into a high-dimensional vector representation. <<<code>>>: import tensorflow_hub as hub\nembed = hub.load('https://tfhub.dev/google/universal-sentence-encoder/4')\nvector_representation = embed([\"Deep Learning Fundamentals\"])\n",
+      "api_call": "hub.load('https://tfhub.dev/google/universal-sentence-encoder/4')",
+      "provider": "TensorFlow Hub",
+      "api_data": {
+        "domain": "Text embedding",
+        "framework": "TensorFlow Hub",
+        "functionality": "Embedding text into high-dimensional vectors",
+        "api_name": "universal-sentence-encoder",
+        "api_call": "hub.load('https://tfhub.dev/google/universal-sentence-encoder/4')",
+        "api_arguments": [
+          "input_text"
+        ],
+        "python_environment_requirements": [
+          "tensorflow",
+          "tensorflow_hub"
+        ],
+        "example_code": "import tensorflow as tf\nimport tensorflow_hub as hub\nembed = hub.load('https://tfhub.dev/google/universal-sentence-encoder/4')\nembeddings = embed(['Hello, world!', 'Greetings, humans!'])\nprint(embeddings)",
+        "performance": {
+          "dataset": "STS benchmark",
+          "accuracy": "Pearson correlation coefficient of 0.78"
+        },
+        "description": "A pre-trained model for embedding text into high-dimensional vectors that can be used in various natural language processing tasks."
+      }
+    },
+    {
+      "code": "{'Instruction': Design an API for segmenting the objects in an image with the highest accuracy., 'Output': {'domain': 'Semantic Segmentation', 'api_call': \"model = torch.hub.load('pytorch/vision', 'deeplabv3_resnet101', pretrained=True)\", 'api_provider': 'PyTorch', 'explanation': 'Load the DeepLabV3+ model with a ResNet-101 backbone from PyTorch Hub, which is pretrained on COCO val2017 for semantic segmentation, to segment objects in an image with high accuracy.', 'code': 'import torch\nmodel = torch.hub.load('pytorch/vision', 'deeplabv3_resnet101', pretrained=True)'}}",
+      "api_call": "torch.hub.load(repo_or_dir='pytorch/vision', model='deeplabv3_resnet101', pretrained=True)",
+      "provider": "PyTorch",
+      "api_data": {
+        "domain": "Semantic Segmentation",
+        "framework": "PyTorch",
+        "functionality": "DeepLabV3",
+        "api_name": "torch.hub.load",
+        "api_call": "torch.hub.load(repo_or_dir='pytorch/vision', model='deeplabv3_resnet101', pretrained=True)",
+        "api_arguments": {
+          "pretrained": "True"
+        },
+        "python_environment_requirements": {
+          "torch": "latest",
+          "torchvision": "latest",
+          "PIL": "latest",
+          "matplotlib": "latest"
+        },
+        "example_code": [
+          "import torch",
+          "model = torch.hub.load('pytorch/vision:v0.10.0', 'deeplabv3_resnet101', pretrained=True)",
+          "model.eval()",
+          "from PIL import Image",
+          "from torchvision import transforms",
+          "input_image = Image.open(filename)",
+          "input_image = input_image.convert('RGB')",
+          "preprocess = transforms.Compose([",
+          " transforms.ToTensor(),",
+          " transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),",
+          "])",
+          "input_tensor = preprocess(input_image)",
+          "input_batch = input_tensor.unsqueeze(0)",
+          "if torch.cuda.is_available():",
+          " input_batch = input_batch.to('cuda')",
+          " model.to('cuda')",
+          "with torch.no_grad():",
+          " output = model(input_batch)['out'][0]",
+          "output_predictions = output.argmax(0)"
+        ],
+        "performance": {
+          "dataset": "COCO val2017",
+          "accuracy": [
+            {
+              "model": "deeplabv3_resnet101",
+              "Mean IOU": 67.4,
+              "Global Pixelwise Accuracy": 92.4
+            }
+          ]
+        },
+        "description": "DeepLabV3 models with ResNet-50, ResNet-101 and MobileNet-V3 backbones for semantic segmentation. The pre-trained models have been trained on a subset of COCO train2017, on the 20 categories that are present in the Pascal VOC dataset."
+      }
+    },
+    {
+      "code": "{'Instruction': We need an API for a security system that can detect objects in real-time. Recommend a solution., 'Output': {'domain': 'Object Detection', 'api_call': \"model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)\", 'api_provider': 'PyTorch', 'explanation': 'Load the pretrained YOLOv5 model from PyTorch Hub for real-time object detection in your security system.', 'code': 'import torch\nmodel = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)'}}",
+      "api_call": "torch.hub.load(repo_or_dir='ultralytics/yolov5', model='yolov5s', pretrained=True)",
+      "provider": "PyTorch",
+      "api_data": {
+        "domain": "Object Detection",
+        "framework": "PyTorch",
+        "functionality": "YOLOv5",
+        "api_name": "torch.hub.load",
+        "api_call": "torch.hub.load(repo_or_dir='ultralytics/yolov5', model='yolov5s', pretrained=True)",
+        "api_arguments": [
+          "'ultralytics/yolov5'",
+          "'yolov5s'",
+          "pretrained=True"
+        ],
+        "python_environment_requirements": "Python>=3.8, PyTorch>=1.7",
+        "example_code": [
+          "import torch",
+          "model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)",
+          "imgs = ['https://ultralytics.com/images/zidane.jpg']",
+          "results = model(imgs)",
+          "results.print()",
+          "results.save()",
+          "results.xyxy[0]",
+          "results.pandas().xyxy[0]"
+        ],
+        "performance": {
+          "dataset": "COCO",
+          "accuracy": {
+            "YOLOv5s6": {
+              "mAPval0.5:0.95": 43.3,
+              "mAPtest0.5:0.95": 43.3,
+              "mAPval0.5": 61.9
+            },
+            "YOLOv5m6": {
+              "mAPval0.5:0.95": 50.5,
+              "mAPtest0.5:0.95": 50.5,
+              "mAPval0.5": 68.7
+            },
+            "YOLOv5l6": {
+              "mAPval0.5:0.95": 53.4,
+              "mAPtest0.5:0.95": 53.4,
+              "mAPval0.5": 71.1
+            },
+            "YOLOv5x6": {
+              "mAPval0.5:0.95": 54.4,
+              "mAPtest0.5:0.95": 54.4,
+              "mAPval0.5": 72
+            },
+            "YOLOv5x6 TTA": {
+              "mAPval0.5:0.95": 55,
+              "mAPtest0.5:0.95": 55,
+              "mAPval0.5": 72
+            }
+          }
+        },
+        "description": "YOLOv5 is a family of compound-scaled object detection models trained on the COCO dataset, and includes simple functionality for Test Time Augmentation (TTA), model ensembling, hyperparameter evolution, and export to ONNX, CoreML and TFLite."
+      }
+    }
+  ],
+  "rest": [
+    {
+      "todo": true
+    }
+  ],
+  "cli": [
+    {
+      "todo": true
+    }
+  ]
+}
