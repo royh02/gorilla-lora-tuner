@@ -15,6 +15,13 @@ def extract_adapter(model_path):
     for i in range(len(weight_list)):
         new_model[weight_list[i]] = model["model"][weight_list[i]]
 
-    save_path = args.model_path.replace('.pth', '-adapter.pth')
+    save_path = model_path.replace('.pth', '-adapter.pth')
     torch.save(new_model, save_path)
     return new_model
+
+def main():
+    model_path = '/data/roy.huang/lora/adapter/checkpoint/exp_test/checkpoint-4.pth'
+    extract_adapter(model_path)
+
+if __name__ == "__main__":
+    main()

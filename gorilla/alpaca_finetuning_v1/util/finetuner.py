@@ -2,6 +2,9 @@ import subprocess
 import os
 from dotenv import load_dotenv
 
+
+from extract_adapter_from_checkpoint import extract_adapter
+
 load_dotenv()
 
 # Define variables for the arguments
@@ -19,7 +22,8 @@ def run_finetune(
         warmup_epochs = 2,
         blr = 5e-2,
         weight_decay = 0.02,
-        output_dir = "./checkpoint/exp"):
+        output_dir = "./checkpoint/exp",
+        job_id ):
 
 
     # Construct the command as a list of arguments
@@ -39,11 +43,16 @@ def run_finetune(
         "--warmup_epochs", str(warmup_epochs),
         "--blr", str(blr),
         "--weight_decay", str(weight_decay),
-        "--output_dir", output_dir,
+        "--output_dir", output_dir,,
+        "--job_id", 
     ]
 
     # Execute the command
     subprocess.run(command)
+
+
+
+
 
 def main():
     run_finetune(
