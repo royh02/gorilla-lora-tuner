@@ -1,0 +1,116 @@
+You are asked to come up with diverse task instructions that requires using API calls. These task instructions will be given to a GPT model and we will evaluate the GPT model for completing the instructions.
+Here are the requirements for instructions:
+Do not include any API name. Only describe the task instruction without including any hint on how to solve it.
+Try not to repeat the verb for each instruction to maximize diversity.
+The language used for the instruction also should be diverse. For example, you should combine questions with imperative instructions.
+The type of instructions should be diverse.
+A GPT language model should be able to complete the instruction. For example, do not ask the assistant to create any visual or audio output. For another example, do not ask the assistant to wake you up at 5pm or set a reminder because it cannot perform any action.
+The instructions should be in English.
+The instructions should be 1 to 2 sentences long. Either an imperative sentence or a question is permitted.
+The task instruction should be a real life scenario.
+Clearly state the necessary input arguments. Not all of them are needed. Generate the input content if it is not in the given text.
+Return a string, which has a one line question a user might ask, where the right answer is the API of what we want to do using the API, with as much details as possible. This has to be strictly derived from the information in the API documentation.
+Do NOT include any other information!
+Here are some generated examples to help. 
+Example-1 input: 
+{ 
+    "request_name": "Download a repository archive (zip)",
+    "request_uid": "6886175-58ca38fa-80ef-4f53-b732-d5cf1202c44a",
+    "request_description": "Gets a redirect URL to download a zip archive for a repository. If you omit `:ref`, the repositorys default branch (usually\n`master`) will be used. Please make sure your HTTP framework is configured to follow redirects or you will need to use\nthe `Location` header to make a second `GET` request.\n**Note**: For private repositories, these links are temporary and expire after five minutes.",
+    "team_name": "NaN",
+    "collection_name": "Github API",
+    "collection_description": "GitHub's v3 REST API.\n\nContact Support:\n Name: Support",
+    "collection_uid": "6886175-a3b94e2b-b956-4733-a107-f6d445316dd2",
+    "variables": [],
+    "curl": "curl --location 'https://api.github.com/repos/<string>/<string>/zipball/<string>'"
+}
+Example-1 output: Download an github repository as a zip file
+Example-2 input:
+{ 
+    "request_name": "/stripe/balance",
+    "request_uid": "14764124-7a27bcfc-3132-4565-ab38-bda40d482409",
+    "request_description": null,
+    "team_name": "speeding-moon-473341",
+    "collection_name": "Applet Unified API",
+    "collection_description": "Applet.io provides simple interface to interact with hundreds of applications with no changes.  You can find out more about Applet.io at [https://applet.io](https://applet.io).\n\nContact Support:\n Email: apiteam@unified.ly",
+    "collection_uid": "14764124-4218e50a-6505-4a95-b8b3-6f5b9c3c3143",
+    "variables": [],
+    "curl": "curl --location 'https://applet.500apps.com/v1/stripe/balance' \\\n--header 'api-key: <api-key>' \\\n--header 'apiKey: <apiKey>'"
+}
+Example-2 output: I would like to see the balance in my stripe account through Applet service
+Example-3 input: 
+{
+    "request_name": "Returns The Enabled Status Of VLA Ns For The Network",
+    "request_uid": "897512-b897f721-ab0e-447a-8510-d2f519e9d327",
+    "request_description": "Returns the enabled status of VLANs for the network",
+    "team_name": "Cisco Meraki",
+    "collection_name": "Meraki Dashboard API - v1.36.0-beta.2",
+    "collection_description": "The Cisco Meraki Dashboard API is a modern REST API based on the OpenAPI specification.\n\n> Date: 16 August, 2023\n>\n> [Recent Updates](https://meraki.io/whats-new/)\n\n---\n\n[API Documentation](https://meraki.io/api)\n\n[Community Support](https://meraki.io/community)\n\n[Meraki Homepage](https://www.meraki.com)\n\n\nContact Support:\n Name: Meraki Developer Community",
+    "collection_uid": "897512-57856327-a3da-45ac-ac7e-fa7f8f679b64",
+    "variables": [
+        {
+            "key": "networkId",
+            "value": ""
+        }
+    ],
+    "curl": "curl --location --globoff 'https://api.meraki.com/api/v1/networks/{{networkId}}/appliance/vlans/settings' \\\n--header 'Authorization;'"
+}
+Example-3 output: I am a network operator at Google. I would like to see the list of all VNAs enabled for my deployment
+Example-4 input: 
+{
+    "request_name": "Steam",
+    "request_uid": "5783860-f5e85405-b417-4a61-a5a3-18e68fea8f43",
+    "request_description": "Checks if account with [Steam](https://steamcommunity.com/)  exists",
+    "team_name": "mushroom-sg",
+    "collection_name": "Postman Sherlock",
+    "collection_description": "Enumerate social media accounts using Postman! Last updated 2021-01-24T13:01:48.387Z, with 271 service(s).\n\n\nInside the `Postman Sherlock` collection, a corresponding Postman Request item is created for each web service that Sherlock supports.\n\nOnce a username is supplied via environment variables, the request item is able to test if the username has been taken on the web service by [checking the response status code or looking for an error message inside the response body](https://github.com/sherlock-project/sherlock/blob/master/sherlock/sherlock.py#L321). \n\nBy running the entire collection at once and inspecting the tests that passed, you can enumerate the accounts on various webservices that are tied to the same username!\n\n### Setup & Running\n\nTo just enumerate the known accounts of a single user, set up a environment with a single variable `username`, with any value you want, then run the entire `Postman Sherlock` collection.\n\nBe careful when running this in Postman Web, it involves almost 300 requests and can take quite a hit on your webagent quota! We also highly recommend you disable response and cookie saving.\n",
+    "collection_uid": "5783860-db6524c8-d9a6-4d3b-89fb-53105dee60dd",
+    "variables": [
+        {
+            "key": "username",
+            "value": ""
+        }
+    ],
+    "curl": "curl --location --globoff 'https://steamcommunity.com/id/{{username}}'"
+}
+Example-4 output: Can you verify if the current user has an active account with Stem
+Example-5 input: 
+{ 
+    "request_name": "Update an application fee refund",
+    "request_uid": "665823-505ef304-d6b4-4805-b6c2-51b78afa5dd6",
+    "request_description": "<p>Refunds an application fee that has previously been collected but not yet refunded.\nFunds will be refunded to the Stripe account from which the fee was originally collected.</p>\n\n<p>You can optionally refund only part of an application fee.\nYou can do so multiple times, until the entire fee has been refunded.</p>\n\n<p>Once entirely refunded, an application fee cant be refunded again.\nThis method will raise an error when called on an already-refunded application fee,\nor when trying to refund more money than is left on an application fee.</p>",
+    "team_name": "StripeDev",
+    "collection_name": "Stripe API [12-15-2021]",
+    "collection_description": "\n## Stripe API Postman Collection\nThis is a postman collection covering the Stripe API. See https://stripe.com/docs/api for more details.\n",
+    "collection_uid": "665823-942013c9-6870-4e9a-9624-4f7530933e13",
+    "variables": [],
+    "curl": "curl --location --request POST 'https://api.stripe.com//v1/application_fees/<string>/refunds' \\\n--header 'Content-Type: application/x-www-form-urlencoded'"
+}
+Example-5 output: I made a mistake transaction and want to return the application fee collected
+Example-6 input:
+{
+    "request_name": "Request Email Verification",
+    "request_uid": "20754404-a28ac993-4dd7-4a1c-a72a-e31e61baa98b",
+    "request_description": null,
+    "team_name": "LiveChat API",
+    "collection_name": "[stable] Customer Chat API v3.5",
+    "collection_description": "**Environment:** The API version has to be edited in the environmental variables before calling API.\n\nSee documentation [here](https://developers.livechat.com/docs/messaging/customer-chat-api).",
+    "collection_uid": "20754404-04cdd9e2-633b-41e4-ba84-294577b9c0b0",
+    "variables": [
+        {
+            "key": "api_version",
+            "value": ""
+        },
+        {
+            "key": "organization_id",
+            "value": ""
+        },
+        {
+            "key": "customer_access_token",
+            "value": ""
+        }
+    ],
+    "curl": "curl --location --globoff 'https://api.livechatinc.com/{{api_version}}/customer/action/request_email_verification?organization_id={{organization_id}}' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Bearer {{customer_access_token}}' \\\n--data '{\n    \"callback_uri\": \"http://example.com\"\n    }'"
+}
+Example-6 output: I am building a user app for sharing stories, and I would like to enable identity verification through email verification
+And now, here is the new API. Remember, to return only the valid instruction string, and nothing else.

@@ -186,6 +186,21 @@ def main(args):
     print(dataset_train)
     print(dataset_val)
 
+    wandb.init(
+        project="Gorilla LoRA Finetuner"
+        config={
+            "model": args.model
+            "adapter_layer": args.adapter_layer,
+            "adapter_len": args.adapter_len,
+            "max_seq_len": args.max_seq_len,
+            "batch_size": args.batch_size,
+            "epochs": args.epochs,
+            "warmup_epochs": args.warmup_epochs,
+            "blr": args.blr,
+            "weight_decay": args.weight_decay,
+        }
+    )
+
     if True:  # args.distributed:
         num_tasks = misc.get_world_size()
         global_rank = misc.get_rank()
@@ -288,6 +303,8 @@ def main(args):
             "epoch": epoch,
             **{f"val_{k}": v for k, v in val_stats.items()},
         }
+        
+        wandb.log(log_stats)
 
         if args.output_dir and misc.is_main_process():
             if log_writer is not None:

@@ -8,8 +8,8 @@ torchrun --nproc_per_node 6 --master_port=29501 finetuning.py \
     --adapter_len 10 \
     --max_seq_len 512 \
     --batch_size 4 \
-    --epochs 8 \
+    --epochs 10 \
     --warmup_epochs 2 \
-    --blr 8e-2 \
+    --blr 8e-1 \
     --weight_decay 0.02 \
     --output_dir ./checkpoint/exp_hf

@@ -19,14 +19,14 @@ def run_finetune(
         warmup_epochs = 2,
         blr = 5e-2,
         weight_decay = 0.02,
-        output_dir = "./checkpoint/exp_hf"):
+        output_dir = "./checkpoint/exp"):
 
 
     # Construct the command as a list of arguments
     command = [
         "torchrun",
-        "--nproc_per_node", num_gpus,
-        f"--master_port={master_port}",
+        "--nproc_per_node", str(num_gpus),
+        f"--master_port={str(master_port)}",
         "../finetuning.py",
         "--model", "Llama7B_adapter",
         "--llama_model_path", f'"{LLAMA_PATH}"',
@@ -44,3 +44,22 @@ def run_finetune(
 
     # Execute the command
     subprocess.run(command)
+
+def main():
+    run_finetune(
+        data_path = "../../gorilla-main/data/apibench/tensorflow_train.json",
+        num_gpus = 6,
+        master_port = 29501,
+        adapter_layer = 30,
+        adapter_len = 10,
+        max_seq_len = 512,
+        batch_size = 4,
+        epochs = 5,
+        warmup_epochs = 2,
+        blr = 5e-2,
+        weight_decay = 0.02,
+        output_dir = "/data/roy.huang/lora/adapter/checkpoint/exp_test"
+    )
+
+if __name__ == "__main__":
+    main()

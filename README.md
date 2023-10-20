@@ -6,4 +6,6 @@ git submodule update --init
 
 To update the module
 
-```git submodule update --remote```
+```
+git submodule update --remote
+```

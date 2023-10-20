@@ -1,3 +1,17 @@
 gradio
 openai
 python-dotenv
+wandb
+beautifulsoup4
+selenium
+
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.1.0+cu121
+torchvision
+torchaudio
+fairscale
+fire
+sentencepiece
+transformers
+timm
+tensorboard

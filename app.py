@@ -8,6 +8,7 @@ import os
 from dotenv import load_dotenv
 
 from utils import OpenAIClient
+from query_gen import 
 
 load_dotenv()
 
@@ -33,27 +34,17 @@ def is_swagger_file(file):
             return is_swagger_content(content)
     return False
 
-def api_to_inst_api_pair(file):
-    openai.api_key = 'YOUR_API_KEY'
 
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=100  # Adjust as needed.
-    )
-
-    generated_queries = response.choices[0].text.strip()
     
 
-def execute(file):
+def execute(inputs):
     """
     Input:
-    file: File - Swagger File containing API info.
+    inputs -> id, url, domain
     """
-    # Validate that the uploaded file is a swagger file
-    if not is_swagger_file(file):
-        return "Invalid Swagger file. Please upload a valid Swagger file (JSON or YAML)."
     
+    progress=gr.Progress(track_tqdm=True)
+
     inst_api_pair = api_to_inst_api_pair(file)
 
 
@@ -61,9 +52,13 @@ def execute(file):
 def main():
     # Define Gradio interface with File input
     iface = gr.Interface(
-        fn=predict,
-        inputs=gr.inputs.File(label="Upload a File"),
-        outputs="text",
+        fn=execute,
+        inputs=[
+            gr.inputs.Textbox(label="ID"),
+            gr.inputs.Textbox(label="URL"),
+            gr.inputs.Textbox(label="Domain")
+        ],
+        outputs=gr.outputs.Textbox(label="Result"),
     )
 
     # Launch the Gradio interface
