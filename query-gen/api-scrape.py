@@ -10,6 +10,8 @@ from selenium.webdriver.firefox.options import Options
 
 load_dotenv()
 
+DATA_FOLDER = "/data/roy.huang/lora/data/api"
+ERROR_FOLDER = "/data/roy.huang/lora/data/error"
 OPEANAI_MAX_TOKENS = 8192
 ai_agent = "openai"  # Change this to "anthropicai" to use Claude-v1 and "openai" to use GPT-4-0314.
 api_key = os.environ.get('OPENAI_KEY')
@@ -51,49 +53,6 @@ def get_ai_response(pre_prompt, prompt, ai_agent):
         print(e)
         return None 
     
-
-# openai.api_key = "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"
-# api_key1 = "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"
-# api_key2 = "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"
-# api_key3 = "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"
-# TODO: this is the prompt for torch hub
-# pre_prompt = "We want to create a compact representation of the API. Convert the following documentation into \
-#     a json with fields {domain, framework, functionality, api_name, api_call, api_arguments, \
-#     python_environment_requirements, example_code, performance, description}. \
-#     Make sure the `performance` has a subfield `dataset` corresponding to subfield `accuracy`. \
-#     `domain` should include one of {Multimodal, Computer Vision, NLP, Audio, Tabular, Reinforcement Learning}"  
-
-# # TODO: this is the prompt for huggingface
-# pre_prompt = "We want to create a compact representation of the API. Convert the following documentation into \
-#     a valid JSON line with fields {domain, framework, functionality, api_name, api_call, api_arguments, \
-#     python_environment_requirements, example_code, performance, description}.\n \
-#     The `api_name` should be the name of the model id, and the `api_call` should be one line of python code calling the api. \
-#     The `example_code` should be directly copied from the website if there are any examples.\
-# `domain` should include one of {Multimodal Feature Extraction, Multimodal Text-to-Image, Multimodal Image-to-Text, Multimodal Text-to-Video, \
-# Multimodal Visual Question Answering, Multimodal Document Question Answer, Multimodal Graph Machine Learning, Computer Vision Depth Estimation,\
-# Computer Vision Image Classification, Computer Vision Object Detection, Computer Vision Image Segmentation, Computer Vision Image-to-Image, \
-# Computer Vision Unconditional Image Generation, Computer Vision Video Classification, Computer Vision Zero-Shor Image Classification, \
-# Natural Language Processing Text Classification, Natural Language Processing Token Classification, Natural Language Processing Table Question Answering, \
-# Natural Language Processing Question Answering, Natural Language Processing Zero-Shot Classification, Natural Language Processing Translation, \
-# Natural Language Processing Summarization, Natural Language Processing Conversational, Natural Language Processing Text Generation, Natural Language Processing Fill-Mask,\
-# Natural Language Processing Text2Text Generation, Natural Language Processing Sentence Similarity, Audio Text-to-Speech, Audio Automatic Speech Recognition, \
-# Audio Audio-to-Audio, Audio Audio Classification, Audio Voice Activity Detection, Tabular Tabular Classification, Tabular Tabular Regression, \
-# Reinforcement Learning Reinforcement Learning, Reinforcement Learning Robotics }\
-#     Make sure the `performance` has a subfield `dataset` corresponding to subfield `accuracy`."  
-
-# '''
-# `domain` should include one of {Multimodal Feature Extraction, Multimodal Text-to-Image, Multimodal Image-to-Text, Multimodal Text-to-Video, \
-# Multimodal Visual Question Answering, Multimodal Document Question Answer, Multimodal Graph Machine Learning, Computer Vision Depth Estimation,\
-# Computer Vision Image Classification, Computer Vision Object Detection, Computer Vision Image Segmentation, Computer Vision Image-to-Image, \
-# Computer Vision Unconditional Image Generation, Computer Vision Video Classification, Computer Vision Zero-Shor Image Classification, \
-# Natural Language Processing Text Classification, Natural Language Processing Token Classification, Natural Language Processing Table Question Answering, \
-# Natural Language Processing Question Answering, Natural Language Processing Zero-Shot Classification, Natural Language Processing Translation, \
-# Natural Language Processing Summarization, Natural Language Processing Conversational, Natural Language Processing Text Generation, Natural Language Processing Fill-Mask,\
-# Natural Language Processing Text2Text Generation, Natural Language Processing Sentence Similarity, Audio Text-to-Speech, Audio Automatic Speech Recognition, \
-# Audio Audio-to-Audio, Audio Audio Classification, Audio Voice Activity Detection, Tabular Tabular Classification, Tabular Tabular Regression, \
-# Reinforcement Learning Reinforcement Learning, Reinforcement Learning Robotics \
-# }
-# '''
 
 # TODO: this is the prompt for Tensorflow Hub
 pre_prompt = "We want to create a compact representation of the API. Convert the following documentation into \
@@ -139,7 +98,8 @@ def process_url(args):
             result_text = get_ai_response(pre_prompt, prompt, ai_agent)
             file_name = f"{ai_agent}_{identifier}-{current_date}.json"
             with write_lock:
-                with open(file_name, "a") as f:
+                file_loc = os.path.join(DATA_FOLDER, file_name)
+                with open(file_loc, "a") as f:
                     if ai_agent == "openai":
                         result = json.loads(result_text)
                         result["domain"] = domain
@@ -150,10 +110,10 @@ def process_url(args):
     except Exception as e:
         print(f"Exception: {e}")
         print(f"Failed URL: {url}")
-        print(result)
         file_name = f"{ai_agent}_{identifier}-error-{current_date}.json"
+        file_loc = os.path.join(ERROR_FOLDER, file_name)
         with write_lock:
-            with open(file_name, "a") as f:
+            with open(file_loc, "a") as f:
                 f.write(url + "\n")
     
 

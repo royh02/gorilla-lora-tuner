@@ -16,6 +16,7 @@ from engine_finetuning import train_one_epoch, val_one_epoch
 from torch.utils.data import Dataset
 from torch.utils.tensorboard import SummaryWriter
 from util.misc import NativeScalerWithGradNormCount as NativeScaler
+import wandb
 
 import torch.distributed as dist
 
@@ -187,9 +188,9 @@ def main(args):
     print(dataset_val)
 
     wandb.init(
-        project="Gorilla LoRA Finetuner"
+        project="Gorilla LoRA Finetuner",
         config={
-            "model": args.model
+            "model": args.model,
             "adapter_layer": args.adapter_layer,
             "adapter_len": args.adapter_len,
             "max_seq_len": args.max_seq_len,

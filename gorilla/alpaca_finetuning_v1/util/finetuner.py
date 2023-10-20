@@ -29,7 +29,7 @@ def run_finetune(
         f"--master_port={str(master_port)}",
         "../finetuning.py",
         "--model", "Llama7B_adapter",
-        "--llama_model_path", f'"{LLAMA_PATH}"',
+        "--llama_model_path", f'{LLAMA_PATH}',
         "--data_path", data_path,
         "--adapter_layer", str(adapter_layer),
         "--adapter_len", str(adapter_len),
