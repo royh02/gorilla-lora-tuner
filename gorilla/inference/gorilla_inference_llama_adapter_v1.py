@@ -106,7 +106,7 @@ def load(
 
 def main(
     question: str,
-    job_id: str,
+    uid: str,
     adapter_path: str,
     temperature: float = 0.1,
     top_p: float = 0.75,
@@ -129,7 +129,7 @@ def main(
 
 
     # Write output to file
-    with open(os.path.join(RESULT_PATH, f'result_{job_id}.txt'), "w") as ans_file:
+    with open(os.path.join(RESULT_PATH, f'result_{uid}.txt'), "w") as ans_file:
         ans_file.write(json.dumps(result) + "\n")
 
 

@@ -164,3 +164,5 @@ cython_debug/
 
 gorilla/alpaca_finetuning_v1/util/output_dir/
 gorilla/alpaca_finetuning_v1/util/wandb/
+wandb/
+output_dir/

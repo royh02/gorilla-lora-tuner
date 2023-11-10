@@ -17,7 +17,7 @@ def extract_adapter(model_path):
 
     save_path = model_path.replace('.pth', '-adapter.pth')
     torch.save(new_model, save_path)
-    return new_model
+    return save_path
 
 def main():
     model_path = '/data/roy.huang/lora/adapter/checkpoint/exp_test/checkpoint-4.pth'

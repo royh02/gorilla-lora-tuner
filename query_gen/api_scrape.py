@@ -10,8 +10,8 @@ from selenium.webdriver.firefox.options import Options
 
 load_dotenv()
 
-DATA_FOLDER = "/data/roy.huang/lora/data/api"
-ERROR_FOLDER = "/data/roy.huang/lora/data/error"
+DATA_FOLDER = os.environ.get("DATA_FOLDER")
+ERROR_FOLDER = os.environ.get("ERROR_FOLDER")
 OPEANAI_MAX_TOKENS = 8192
 ai_agent = "openai"  # Change this to "anthropicai" to use Claude-v1 and "openai" to use GPT-4-0314.
 api_key = os.environ.get('OPENAI_KEY')
@@ -73,6 +73,13 @@ def process_url(args):
     3. Domain - what the API provided roughly does
     """
     identifier, url, domain = args[0], args[1], args[2]
+
+    personal_data_dir = os.path.join(DATA_FOLDER, identifier)
+    personal_error_dir = os.path.join(ERROR_FOLDER, identifier)
+
+    os.makedirs(personal_data_dir, exist_ok=True)
+    os.makedirs(personal_error_dir, exist_ok=True)
+
     current_date = datetime.now().strftime('%y%m%d')
     try:
         # print(f"Processing URL: {url}")
@@ -98,11 +105,12 @@ def process_url(args):
             result_text = get_ai_response(pre_prompt, prompt, ai_agent)
             file_name = f"{ai_agent}_{identifier}-{current_date}.json"
             with write_lock:
-                file_loc = os.path.join(DATA_FOLDER, file_name)
+                file_loc = os.path.join(personal_data_dir, file_name)
                 with open(file_loc, "a") as f:
                     if ai_agent == "openai":
                         result = json.loads(result_text)
                         result["domain"] = domain
+                        print('asdfgh',result)
                         f.write(json.dumps(result) + "\n")
                     # else:
                     #     f.write("{" + f"'domain':{domain}  {result_text} + '\n'")
@@ -111,7 +119,7 @@ def process_url(args):
         print(f"Exception: {e}")
         print(f"Failed URL: {url}")
         file_name = f"{ai_agent}_{identifier}-error-{current_date}.json"
-        file_loc = os.path.join(ERROR_FOLDER, file_name)
+        file_loc = os.path.join(personal_error_dir, file_name)
         with write_lock:
             with open(file_loc, "a") as f:
                 f.write(url + "\n")
@@ -130,7 +138,7 @@ def scraper(urls):
                 print(f"Exception: {e}")
 
 def main():
-    scraper([['oai',"https://platform.openai.com/docs/api-reference/introduction", 'generic']])
+    scraper([['boto3',"https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/acm-pca/client/get_policy.html", 'generic']])
 
 if __name__ == "__main__":
     main()

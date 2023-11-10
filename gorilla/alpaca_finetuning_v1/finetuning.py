@@ -41,13 +41,21 @@ class InstructionDataset(Dataset):
         ann = []
         data_lists = list(open(data_path))
         for data in data_lists:
-            data = json.loads(data)['code']
-            if '###Instruction.' in data:
-                data = data.replace('###Instruction.', '###Instruction:')
-            if 'Output:' in data:
-               ann.append({'instruction':data.split('Output:')[0].split('Instruction:')[1].split('###')[0],
-                           'input': '',
-                           'output': data.split('Output:')[1]})
+            data = json.loads(data)
+            if 'code' in data:
+                data = json.loads(data)['code']
+                if '###Instruction.' in data:
+                    data = data.replace('###Instruction.', '###Instruction:')
+                if 'Output:' in data:
+                    ann.append({'instruction':data.split('Output:')[0].split('Instruction:')[1].split('###')[0],
+                                'input': '',
+                                'output': data.split('Output:')[1]})
+            else:
+                inst = data['instruction']
+                data.pop('instruction')
+                ann.append({'instruction': inst,
+                            'input': '',
+                            'output': json.dumps(data)})
         self.ann = ann
 
         # self.ann = json.load(open(data_path))
@@ -55,6 +63,8 @@ class InstructionDataset(Dataset):
             self.ann = self.ann
         else:
             self.ann = self.ann[:200]
+        
+        print('ANNNNNNNNNNN', self.ann)
 
         self.max_words = max_words
         tokenizer = Tokenizer(model_path=os.path.join(model_path, "tokenizer.model"))
@@ -96,7 +106,7 @@ def get_args_parser():
         "--batch_size",
         default=64,
         type=int,
-        help="Batch size per GPU (effective batch size is batch_size * accum_iter * # gpus",
+        help="Batch size per GPU (effective batch size is batch_size * accum_iter * # gpus)",
     )
     parser.add_argument("--epochs", default=400, type=int)
     parser.add_argument(
@@ -133,9 +143,6 @@ def get_args_parser():
 
     parser.add_argument("--warmup_epochs", type=int, default=40, metavar="N", help="epochs to warmup LR")
 
-    # Dataset parameters
-    parser.add_argument("--data_path", default="/instruction_dataset/", type=str, help="dataset path")
-
     parser.add_argument("--output_dir", default="./output_dir", help="path where to save, empty for no saving")
     parser.add_argument("--log_dir", default="./output_dir", help="path where to tensorboard log")
     parser.add_argument("--device", default="cuda", help="device to use for training / testing")
@@ -157,6 +164,7 @@ def get_args_parser():
     parser.add_argument("--local_rank", default=-1, type=int)
     parser.add_argument("--dist_on_itp", action="store_true")
     parser.add_argument("--dist_url", default="env://", help="url used to set up distributed training")
+    parser.add_argument("--uid", default=None, type=str)
 
     return parser
 
@@ -177,11 +185,13 @@ def main(args):
 
     cudnn.benchmark = True
 
+    data_path = os.path.join("/data/roy.huang/lora/data/inst", args.uid, "output.json")
+
     dataset_train = InstructionDataset(
-        data_path=args.data_path, model_path=args.llama_model_path, max_words=args.max_seq_len, partition="train"
+        data_path=data_path, model_path=args.llama_model_path, max_words=args.max_seq_len, partition="train"
     )
     dataset_val = InstructionDataset(
-        data_path=args.data_path, model_path=args.llama_model_path, max_words=args.max_seq_len, partition="val"
+        data_path=data_path, model_path=args.llama_model_path, max_words=args.max_seq_len, partition="val"
     )
 
     print(dataset_train)
@@ -297,7 +307,7 @@ def main(args):
                 optimizer=optimizer,
                 loss_scaler=loss_scaler,
                 epoch=epoch,
-                filename=
+                file_name=f"checkpoint_{args.uid}.pth"
             )
 
         log_stats = {

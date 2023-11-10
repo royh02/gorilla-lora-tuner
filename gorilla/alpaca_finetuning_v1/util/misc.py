@@ -64,7 +64,7 @@ class SmoothedValue(object):
 
     @property
     def global_avg(self):
-        return self.total / self.count
+        return self.total / self.count if self.count > 0 else 0
 
     @property
     def max(self):
@@ -163,8 +163,12 @@ class MetricLogger(object):
             end = time.time()
         total_time = time.time() - start_time
         total_time_str = str(datetime.timedelta(seconds=int(total_time)))
-        print('{} Total time: {} ({:.4f} s / it)'.format(
-            header, total_time_str, total_time / len(iterable)))
+        if len(iterable) == 0:
+            print('{} Total time: {}'.format(
+                header, total_time_str))
+        else:
+            print('{} Total time: {} ({:.4f} s / it)'.format(
+                header, total_time_str, total_time / len(iterable)))
 
 
 def setup_for_distributed(is_master):
@@ -292,7 +296,7 @@ def get_grad_norm_(parameters, norm_type: float = 2.0) -> torch.Tensor:
     return total_norm
 
 
-def save_model(args, epoch, model, model_without_ddp, optimizer, loss_scaler, filename=None):
+def save_model(args, epoch, model, model_without_ddp, optimizer, loss_scaler, file_name=None):
     output_dir = Path(args.output_dir)
     epoch_name = str(epoch)
     if loss_scaler is not None:
@@ -312,6 +316,7 @@ def save_model(args, epoch, model, model_without_ddp, optimizer, loss_scaler, fi
     else:
         client_state = {'epoch': epoch}
         model.save_checkpoint(save_dir=args.output_dir, tag="checkpoint-%s" % epoch_name, client_state=client_state)
+    
 
 
 def load_model(args, model_without_ddp, optimizer, loss_scaler):
